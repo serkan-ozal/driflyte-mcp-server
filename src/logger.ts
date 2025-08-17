@@ -1,12 +1,7 @@
-import chalk from 'chalk';
-
 const BANNER_TEXT = '[DRIFLYTE]';
-const BANNER_BG_COLOR = '#628816';
-const BANNER_TEXT_COLOR = '#5ECAE0';
-
 const DISABLED = true;
 
-let debugEnabled = false;
+let debugEnabled: boolean = false;
 
 function _timeAsString(): string {
     const date: Date = new Date();
@@ -53,10 +48,10 @@ export function debug(...args: any[]): void {
     }
     if (isDebugEnabled()) {
         console.debug(
-            chalk.bgHex(BANNER_BG_COLOR).hex(BANNER_TEXT_COLOR)(BANNER_TEXT),
+            BANNER_TEXT,
             _timeAsString(),
             '|',
-            chalk.blue('DEBUG'),
+            'DEBUG',
             '-',
             ..._normalizeArgs(...args)
         );
@@ -68,10 +63,10 @@ export function info(...args: any[]): void {
         return;
     }
     console.info(
-        chalk.bgHex(BANNER_BG_COLOR).hex(BANNER_TEXT_COLOR)(BANNER_TEXT),
+        BANNER_TEXT,
         _timeAsString(),
         '|',
-        chalk.green('INFO '),
+        'INFO ',
         '-',
         ..._normalizeArgs(...args)
     );
@@ -82,10 +77,10 @@ export function warn(...args: any[]): void {
         return;
     }
     console.warn(
-        chalk.bgHex(BANNER_BG_COLOR).hex(BANNER_TEXT_COLOR)(BANNER_TEXT),
+        BANNER_TEXT,
         _timeAsString(),
         '|',
-        chalk.yellow('WARN '),
+        'WARN ',
         '-',
         ..._normalizeArgs(...args)
     );
@@ -96,10 +91,10 @@ export function error(...args: any[]): void {
         return;
     }
     console.error(
-        chalk.bgHex(BANNER_BG_COLOR).hex(BANNER_TEXT_COLOR)(BANNER_TEXT),
+        BANNER_TEXT,
         _timeAsString(),
         '|',
-        chalk.red('ERROR'),
+        'ERROR',
         '-',
         ..._normalizeArgs(...args)
     );
