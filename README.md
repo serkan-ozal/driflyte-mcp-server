@@ -1,7 +1,7 @@
 # Driflyte MCP Server
 
 ![Build Status](https://github.com/serkan-ozal/driflyte-mcp-server/actions/workflows/build.yml/badge.svg)
-![NPM Version](https://badge.fury.io/js/driflyte-mcp-server.svg)
+![NPM Version](https://badge.fury.io/js/%40driflyte%2Fmcp-server.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 MCP Server for [driflyte](http://www.driflyte.com).
