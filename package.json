@@ -1,0 +1,54 @@
+{
+  "name": "@driflyte/mcp-server",
+  "version": "0.0.0",
+  "description": "MCP Server for Driflyte",
+  "type": "commonjs",
+  "main": "./dist/index.js",
+  "bin": {
+    "driflyte": "./dist/index.js"
+  },
+  "author": "Serkan Ozal <serkanozal86@gmail.com> (https://github.com/serkan-ozal)",
+  "homepage": "https://github.com/serkan-ozal/driflyte-mcp-server",
+  "repository": "serkan-ozal/driflyte-mcp-server",
+  "license": "MIT",
+  "keywords": [
+    "mcp-server",
+    "web-crawler",
+    "ai",
+    "llm"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts",
+    "watch": "tsc --watch",
+    "inspector": "npm run build && chmod 755 './dist/index.js' && npx @modelcontextprotocol/inspector dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:check": "prettier --config .prettierrc.json --check ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
+    "lint:format": "prettier --config .prettierrc.json --write ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
+    "release:patch": "release-it --ci --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
+    "release:minor": "release-it minor --ci --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
+    "release:major": "release-it major --ci --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks"
+  },
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.19.87",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.26.0",
+    "eslint-plugin-import": "^2.31.0",
+    "prettier": "^3.5.3",
+    "release-it": "^17.6.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.1",
+    "axios": "^1.11.0"
+  }
+}
