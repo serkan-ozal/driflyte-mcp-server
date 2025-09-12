@@ -2,6 +2,7 @@
   "name": "@driflyte/mcp-server",
   "version": "0.0.0",
   "description": "MCP Server for Driflyte",
+  "private": false,
   "type": "commonjs",
   "main": "./dist/index.js",
   "bin": {
