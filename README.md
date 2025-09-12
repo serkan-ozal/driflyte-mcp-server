@@ -64,7 +64,7 @@ like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-ser
       - `Type`: `Array<string>`
       - `Description`: A list of one or more topic identifiers to constrain the search space.
                        Only documents tagged with at least one of these topics will be considered.
-    - `question`
+    - `query`
       - `Optinal`: `false`
       - `Type`: `string`
       - `Description`: The natural language query or question for which relevant information is being sought.
@@ -73,6 +73,8 @@ like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-ser
       - `Optinal`: `true`
       - `Type`: `number`
       - `Default Value`: `10`
+      - `Min Value`: `1`
+      - `Max Value`: `30`
       - `Description`: The maximum number of relevant documents to return.
                        Results are sorted by descending relevance score.
   - **Output Schema**:
