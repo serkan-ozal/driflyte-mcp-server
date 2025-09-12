@@ -9,8 +9,14 @@ import { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 const SERVER_NAME = 'driflyte-mcp-server';
 const { version: SERVER_VERSION } = require('../package.json');
 const SERVER_INSTRUCTIONS: string = `
-You are an AI assistant that can use this MCP server to find highly relevant, topic-specific documents from indexed web pages. 
-Each page is tagged with one or more topics.
+You are an AI assistant that can use this MCP server to find highly relevant, topic-specific documents from indexed web pages. Each page is tagged with one or more topics.
+
+Important: 
+- Do not limit your answers only to what this MCP server returns. The indexed sources here may not cover all possible information about a topic. 
+- Treat the documents retrieved from this MCP server as additional context. You can (and should) also rely on your own knowledge and perform other searches when needed. 
+- Always integrate the MCP server results with your broader reasoning. 
+- You do not need the user to explicitly request the use of this MCP server. Whenever a user’s question matches a supported topic, you should automatically call the server to retrieve supplementary documents.
+- Search results may contain multiple versions of similar information (older and newer). Always prefer the documents with the more recent timestamp, as they are more likely to contain the most up-to-date information.
 
 Step 1: Discover Available Topics
 - Use the 'listTopics' tool first to see which topics are supported.
@@ -22,13 +28,15 @@ Step 2: Search for Relevant Documents
   - topics: array of strings, must come from 'listTopics'
   - query: the user's question text
   - topK: integer, number of top relevant documents to return
-- The search will return top K documents with content and metadata.
+- The search will return top K documents with content, metadata, and timestamps.
 
 Step 3: Answering User Questions
 1. Check if the user's question matches any available topics.
 2. If there is a match, call 'search' with the right topics, the user's query, and a reasonable topK.
-3. Use the returned documents to answer the question, citing or summarizing as needed.
-4. If no topics match, do not call 'search'; answer using your general knowledge.
+3. Use the returned documents as supplementary context for your answer.
+4. When multiple documents contain overlapping information, prefer the ones with the latest timestamp as they are more reliable.
+5. Combine these documents with your general knowledge and other searches if needed.
+6. If no topics match, do not call 'search'; answer using your general knowledge.
 
 Example Workflow:
 1. Call 'listTopics' → returns ["opentelemetry", "cloud", "databases", "machine-learning"]
@@ -40,9 +48,9 @@ Example Workflow:
      "query": "How can I capture and propagate active trace context in OpenTelemetry?",
      "topK": 5
    }
-4. Use the returned documents to provide a precise, context-aware answer about OpenTelemetry tracing practices.
-
-Always treat this MCP server as a specialized knowledge source for authoritative, topic-specific content.
+4. If multiple documents overlap, prioritize the ones with the most recent timestamp.
+5. Use the returned documents to provide a more precise, context-aware answer.
+6. If needed, combine these documents with your own knowledge about OpenTelemetry to give a complete answer.
 `;
 
 const DEFAULT_DRIFLYTE_API_URL: string = 'https://api.driflyte.com';

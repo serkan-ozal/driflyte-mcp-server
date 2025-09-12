@@ -1,5 +1,5 @@
 export interface SearchRequest {
     topics: string[];
-    question: string;
+    query: string;
     topK?: number | undefined;
 }

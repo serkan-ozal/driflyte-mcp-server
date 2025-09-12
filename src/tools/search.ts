@@ -26,7 +26,7 @@ export class Search implements Tool {
                     'A list of one or more topic identifiers to constrain the search space. ' +
                         'Only documents tagged with at least one of these topics will be considered.'
                 ),
-            question: z
+            query: z
                 .string()
                 .describe(
                     'The natural language query or question for which relevant information is being sought. ' +
@@ -35,7 +35,8 @@ export class Search implements Tool {
                 .optional(),
             topK: z
                 .number()
-                .positive()
+                .min(1)
+                .max(30)
                 .optional()
                 .default(10)
                 .describe(
@@ -77,11 +78,11 @@ export class Search implements Tool {
     async handle(
         server: Server,
         driflyteClient: DriflyteClient,
-        { topics, question, topK }: any
+        { topics, query, topK }: any
     ): Promise<any> {
         const response: Response<SearchResponse> = await driflyteClient.search({
             topics,
-            question,
+            query,
             topK,
         });
         return response.response || {};
