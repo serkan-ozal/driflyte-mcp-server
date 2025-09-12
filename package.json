@@ -18,6 +18,9 @@
     "ai",
     "llm"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "start": "ts-node ./src/index.ts",
