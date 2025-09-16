@@ -8,6 +8,9 @@
   "bin": {
     "driflyte": "./dist/index.js"
   },
+  "exports": {
+    ".": "./dist/server.js"
+  },
   "author": "Serkan Ozal <serkanozal86@gmail.com> (https://github.com/serkan-ozal)",
   "homepage": "https://github.com/serkan-ozal/driflyte-mcp-server",
   "repository": "serkan-ozal/driflyte-mcp-server",
