@@ -4,6 +4,7 @@ import { tools, Tool, ToolInput } from './tools/';
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 
 const SERVER_NAME = 'driflyte-mcp-server';
@@ -61,8 +62,10 @@ function _createDriflyteClient(): DriflyteClient {
     });
 }
 
-export async function startServer(): Promise<void> {
-    const server = new McpServer(
+export async function startServer(
+    customTransport?: Transport
+): Promise<McpServer> {
+    const server: McpServer = new McpServer(
         {
             name: SERVER_NAME,
             version: SERVER_VERSION,
@@ -120,6 +123,8 @@ export async function startServer(): Promise<void> {
         );
     });
 
-    const transport = new StdioServerTransport();
+    const transport: Transport = customTransport || new StdioServerTransport();
     await server.connect(transport);
+
+    return server;
 }
