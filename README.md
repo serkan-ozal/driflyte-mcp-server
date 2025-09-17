@@ -40,14 +40,22 @@ like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-ser
 
 ### Claude Code
 
-Run the following command. 
+Run the following command.
 See [Claude Code MCP docs](https://docs.anthropic.com/en/docs/claude-code/mcp) for more info.
+
+#### Local Server
 ```sh
 claude mcp add driflyte -- npx -y @driflye/mcp-server
 ```
 
+#### Remote Server
+```sh
+claude mcp add --transport http driflyte https://mcp.driflyte.com/mcp
+```
+
 ### Claude Desktop
 
+#### Local Server
 Add the following configuration into the `claude_desktop_config.json` file.
 See the [Claude Desktop MCP docs](https://modelcontextprotocol.io/docs/develop/connect-local-servers) for more info.
 ```json
@@ -61,11 +69,18 @@ See the [Claude Desktop MCP docs](https://modelcontextprotocol.io/docs/develop/c
 }
 ```
 
+#### Remote Server
+Go to the `Settings` > `Connectors` > `Add Custom Connector` in the Claude Desktop and add the new MCP server with the following fields: 
+- Name: `Driflyte` 
+- Remote MCP server URL: `https://mcp.driflyte.com/mcp`
+
 ### Copilot Coding Agent
 
 Add the following configuration to the `mcpServers` section of your Copilot Coding Agent configuration through 
-`Repository` -> `Settings` -> `Copilot` -> `Coding agent` -> `MCP configuration`:
+`Repository` > `Settings` > `Copilot` > `Coding agent` > `MCP configuration`.
 See the [Copilot Coding Agent MCP docs](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/agents/copilot-coding-agent/extending-copilot-coding-agent-with-mcp) for more info.
+
+#### Local Server
 ```json
 {
   "mcpServers": {
@@ -78,11 +93,25 @@ See the [Copilot Coding Agent MCP docs](https://docs.github.com/en/enterprise-cl
 }
 ```
 
+#### Remote Server
+```json
+{
+  "mcpServers": {
+    "driflyte": {
+      "type": "http",
+      "url": "https://mcp.driflyte.com/mcp"
+    }
+  }
+}
+```
+
 ### Cursor
 
 Add the following configuration into the `~/.cursor/mcp.json` file (or `.cursor/mcp.json` in your project folder).
 Or setup by 🖱️[One Click Installation](https://cursor.com/en/install-mcp?name=driflyte&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBkcmlmbHl0ZS9tY3Atc2VydmVyIl19).
 See the [Cursor MCP docs](https://docs.cursor.com/context/model-context-protocol) for more info.
+
+#### Local Server
 ```json
 {
   "mcpServers": {
@@ -94,16 +123,40 @@ See the [Cursor MCP docs](https://docs.cursor.com/context/model-context-protocol
 }
 ```
 
+#### Remote Server
+```json
+{
+  "mcpServers": {
+    "driflyte": {
+      "url": "https://mcp.driflyte.com/mcp"
+    }
+  }
+}
+```
+
 ### Gemini CLI
 
 Add the following configuration into the `~/.gemini/settings.json` file.
 See the [Gemini CLI MCP docs](https://google-gemini.github.io/gemini-cli/docs/tools/mcp-server.html) for more info.
+
+#### Local Server
 ```json
 {
   "mcpServers": {
     "driflyte": {
       "command": "npx",
       "args": ["-y", "@driflyte/mcp-server"]
+    }
+  }
+}
+```
+
+#### Remote Server
+```json
+{
+  "mcpServers": {
+    "driflyte": {
+      "httpUrl": "https://mcp.driflyte.com/mcp"
     }
   }
 }
@@ -114,6 +167,8 @@ See the [Gemini CLI MCP docs](https://google-gemini.github.io/gemini-cli/docs/to
 Add the following configuration into the `.vscode/mcp.json` file.
 Or setup by 🖱️[One Click Installation](https://insiders.vscode.dev/redirect?url=vscode%3Amcp%2Finstall%3F%7B%22name%22%3A%22driflyte%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22%40driflyte%2Fmcp-server%22%5D%7D).
 See the [VS Code MCP docs](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) for more info.
+
+#### Local Server
 ```json
 {
   "mcp": {
@@ -128,16 +183,43 @@ See the [VS Code MCP docs](https://code.visualstudio.com/docs/copilot/chat/mcp-s
 }
 ```
 
+#### Remote Server
+```json
+{
+  "mcp": {
+    "servers": {
+      "driflyte": {
+        "type": "http",
+        "url": "https://mcp.driflyte.com/mcp"
+      }
+    }
+  }
+}
+```
+
 ### Windsurf
 
 Add the following configuration into the `~/.codeium/windsurf/mcp_config.json` file. 
 See the [Windsurf MCP docs](https://docs.windsurf.com/windsurf/cascade/mcp) for more info.
+
+#### Local Server
 ```json
 {
   "mcpServers": {
     "driflyte": {
       "command": "npx",
       "args": ["-y", "@driflyte/mcp-server"]
+    }
+  }
+}
+```
+
+#### Remote Server
+```json
+{
+  "mcpServers": {
+    "driflyte": {
+      "serverUrl": "https://mcp.driflyte.com/mcp"
     }
   }
 }
