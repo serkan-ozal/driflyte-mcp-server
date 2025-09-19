@@ -38,6 +38,20 @@ With this MCP server, Driflyte acts as a bridge between diverse, topic-aware con
 This MCP server (using `STDIO` transport) can be added to any MCP Client 
 like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-server` NPM package.
 
+### ChatGPT
+
+- Navigate to `Settings` under your profile and enable `Developer Mode` under the `Connectors` option.
+- In the chat panel, click the `+` icon, and from the dropdown, select `Developer Mode`. 
+  You’ll see an option to add sources/connectors.
+- Enter the following MCP Server details and then click `Create`:
+  - `Name`: `Driflyte`
+  - `MCP Server URL`: `https://mcp.driflyte.com/openai`
+  - `Authentication`: `No authentication`
+  - `Trust Setting`: Check `I trust this application`
+
+See [How to set up a remote MCP server and connect it to ChatGPT deep research](https://community.openai.com/t/how-to-set-up-a-remote-mcp-server-and-connect-it-to-chatgpt-deep-research/1278375) 
+and [MCP server tools now in ChatGPT – developer mode](https://community.openai.com/t/mcp-server-tools-now-in-chatgpt-developer-mode/1357233) for more info.
+
 ### Claude Code
 
 Run the following command.
