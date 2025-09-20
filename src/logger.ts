@@ -1,6 +1,6 @@
 const BANNER_TEXT = '[DRIFLYTE]';
-const DISABLED = true;
 
+let enabled: boolean = true;
 let debugEnabled: boolean = false;
 
 function _timeAsString(): string {
@@ -34,6 +34,14 @@ function _normalizeArgs(...args: any[]): any[] {
     }
 }
 
+export function enable(): void {
+    enabled = true;
+}
+
+export function disable(): void {
+    enabled = false;
+}
+
 export function isDebugEnabled(): boolean {
     return debugEnabled;
 }
@@ -43,7 +51,7 @@ export function setDebugEnabled(enabled: boolean): void {
 }
 
 export function debug(...args: any[]): void {
-    if (DISABLED) {
+    if (!enabled) {
         return;
     }
     if (isDebugEnabled()) {
@@ -59,7 +67,7 @@ export function debug(...args: any[]): void {
 }
 
 export function info(...args: any[]): void {
-    if (DISABLED) {
+    if (!enabled) {
         return;
     }
     console.info(
@@ -73,7 +81,7 @@ export function info(...args: any[]): void {
 }
 
 export function warn(...args: any[]): void {
-    if (DISABLED) {
+    if (!enabled) {
         return;
     }
     console.warn(
@@ -87,7 +95,7 @@ export function warn(...args: any[]): void {
 }
 
 export function error(...args: any[]): void {
-    if (DISABLED) {
+    if (!enabled) {
         return;
     }
     console.error(

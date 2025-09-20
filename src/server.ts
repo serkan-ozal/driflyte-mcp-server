@@ -111,7 +111,7 @@ export async function startServer(
     };
 
     tools.forEach((t: Tool) => {
-        logger.info(`Registering tool ${t.name()} ...`);
+        logger.debug(`Registering tool ${t.name()} ...`);
         server.registerTool(
             t.name(),
             {
