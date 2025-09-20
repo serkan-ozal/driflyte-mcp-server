@@ -60,8 +60,7 @@
   },
   "release-it": {
     "git": {
-      "commit": true,
-      "commitMessage": "Release ${version}",
+      "commit": "git commit -m \"Release ${version}\"",
       "tag": true,
       "tagName": "v${version}",
       "tagAnnotation": "Release ${version}",
