@@ -1,6 +1,6 @@
 {
   "name": "@driflyte/mcp-server",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "MCP Server for Driflyte",
   "private": false,
   "type": "commonjs",
