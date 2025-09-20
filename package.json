@@ -57,5 +57,11 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.1",
     "axios": "^1.11.0"
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "releaseNotes": "Release ${version}"
+    }
   }
 }
