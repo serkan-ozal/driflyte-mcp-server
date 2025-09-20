@@ -1,10 +1,19 @@
 #!/usr/bin/env node
 
 import * as logger from './logger';
-import { startServer } from './server';
+import {
+    createServer as createMcpServer,
+    createAndConnectServer as createAndConnectMcpServer,
+} from './server';
 
-import { createServer, IncomingMessage, Server, ServerResponse } from 'http';
+import {
+    createServer as createHttpServer,
+    IncomingMessage,
+    Server as HttpServer,
+    ServerResponse,
+} from 'http';
 
+import { Server as McpServerRaw } from '@modelcontextprotocol/sdk/server/index';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -68,7 +77,7 @@ function _getOptions(): Options {
 }
 
 async function _startStdioServer(): Promise<void> {
-    await startServer(new StdioServerTransport());
+    await createAndConnectMcpServer(new StdioServerTransport());
 }
 
 async function _closeMCPServer(
@@ -92,109 +101,95 @@ async function _closeMCPServer(
 }
 
 async function _startStreamableHTTPServer(port: number): Promise<void> {
-    const httpServer: Server<typeof IncomingMessage, typeof ServerResponse> =
-        createServer(
-            async (
-                req: IncomingMessage,
-                res: ServerResponse
-            ): Promise<void> => {
-                const pathname: string = new URL(
-                    req.url || '/',
-                    'http://localhost'
-                ).pathname;
+    const httpServer: HttpServer<
+        typeof IncomingMessage,
+        typeof ServerResponse
+    > = createHttpServer(
+        async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
+            const pathname: string = new URL(req.url || '/', 'http://localhost')
+                .pathname;
 
-                // Set CORS headers for all responses
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader(
-                    'Access-Control-Allow-Methods',
-                    'GET,POST,OPTIONS'
-                );
-                res.setHeader(
-                    'Access-Control-Allow-Headers',
-                    'Content-Type, Authorization, MCP-Protocol-Version'
-                );
+            // Set CORS headers for all responses
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+            res.setHeader(
+                'Access-Control-Allow-Headers',
+                'Content-Type, Authorization, MCP-Protocol-Version'
+            );
 
-                // Handle preflight OPTIONS requests
-                if (req.method === 'OPTIONS') {
-                    res.writeHead(200);
-                    res.end();
-                    return;
-                }
+            // Handle preflight OPTIONS requests
+            if (req.method === 'OPTIONS') {
+                res.writeHead(200);
+                res.end();
+                return;
+            }
 
-                if (pathname === '/mcp') {
-                    if (req.method === 'POST') {
-                        let transport:
-                            | StreamableHTTPServerTransport
-                            | undefined;
-                        let mcpServer: McpServer | undefined;
-                        try {
-                            // Create new instances of MCP Server and Transport for each incoming request
-                            transport = new StreamableHTTPServerTransport({
-                                // This is a stateless MCP server, so we don't need to keep track of sessions
-                                sessionIdGenerator: undefined,
-                                // Change to `false` if you want to enable SSE in responses.
-                                enableJsonResponse: true,
-                            });
-                            mcpServer = await startServer(transport);
+            if (pathname === '/mcp') {
+                if (req.method === 'POST') {
+                    let transport: StreamableHTTPServerTransport | undefined;
+                    let mcpServer: McpServer | undefined;
+                    try {
+                        // Create new instances of MCP Server and Transport for each incoming request
+                        transport = new StreamableHTTPServerTransport({
+                            // This is a stateless MCP server, so we don't need to keep track of sessions
+                            sessionIdGenerator: undefined,
+                            // Change to `false` if you want to enable SSE in responses.
+                            enableJsonResponse: true,
+                        });
+                        mcpServer = await createAndConnectMcpServer(transport);
 
-                            res.on('close', async (): Promise<void> => {
-                                logger.debug(`Request processing completed`);
-                                await _closeMCPServer(transport, mcpServer);
-                            });
-
-                            await transport.handleRequest(req, res);
-                        } catch (err: any) {
-                            logger.error(`Error handling MCP request: ${err}`);
+                        res.on('close', async (): Promise<void> => {
+                            logger.debug(`Request processing completed`);
                             await _closeMCPServer(transport, mcpServer);
-                            if (!res.headersSent) {
-                                res.writeHead(500, {
-                                    'Content-Type': 'application/json',
-                                });
-                                res.end(
-                                    JSON.stringify(
-                                        MCP_ERRORS.internalServerError
-                                    )
-                                );
-                            }
+                        });
+
+                        await transport.handleRequest(req, res);
+                    } catch (err: any) {
+                        logger.error(`Error handling MCP request: ${err}`);
+                        await _closeMCPServer(transport, mcpServer);
+                        if (!res.headersSent) {
+                            res.writeHead(500, {
+                                'Content-Type': 'application/json',
+                            });
+                            res.end(
+                                JSON.stringify(MCP_ERRORS.internalServerError)
+                            );
                         }
-                    } else {
-                        res.writeHead(405, {
-                            'Content-Type': 'application/json',
-                        });
-                        res.end(
-                            JSON.stringify({
-                                error: 'Method Not Allowed',
-                                status: 405,
-                            })
-                        );
-                    }
-                } else if (pathname === '/ping') {
-                    if (req.method === 'GET') {
-                        res.writeHead(200, {
-                            'Content-Type': 'application/json',
-                        });
-                        res.end(
-                            JSON.stringify({ status: 'ok', message: 'pong' })
-                        );
-                    } else {
-                        res.writeHead(405, {
-                            'Content-Type': 'application/json',
-                        });
-                        res.end(
-                            JSON.stringify({
-                                error: 'Method Not Allowed',
-                                status: 405,
-                            })
-                        );
                     }
                 } else {
-                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    res.writeHead(405, {
+                        'Content-Type': 'application/json',
+                    });
                     res.end(
-                        JSON.stringify({ error: 'Not Found', status: 404 })
+                        JSON.stringify({
+                            error: 'Method Not Allowed',
+                            status: 405,
+                        })
                     );
                 }
+            } else if (pathname === '/ping') {
+                if (req.method === 'GET') {
+                    res.writeHead(200, {
+                        'Content-Type': 'application/json',
+                    });
+                    res.end(JSON.stringify({ status: 'ok', message: 'pong' }));
+                } else {
+                    res.writeHead(405, {
+                        'Content-Type': 'application/json',
+                    });
+                    res.end(
+                        JSON.stringify({
+                            error: 'Method Not Allowed',
+                            status: 405,
+                        })
+                    );
+                }
+            } else {
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Not Found', status: 404 }));
             }
-        );
+        }
+    );
 
     httpServer
         .once('listening', () => {
@@ -230,6 +225,11 @@ async function main(): Promise<void> {
         logger.error(`Invalid transport: ${options.transport}`);
         process.exit(1);
     }
+}
+
+export default function createServer({ config }: any): McpServerRaw {
+    const mcpServer: McpServer = createMcpServer();
+    return mcpServer.server;
 }
 
 main().catch((error: any): never => {
