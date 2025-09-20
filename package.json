@@ -21,6 +21,7 @@
     "ai",
     "llm"
   ],
+  "mcpName": "com.driflyte/driflyte-mcp-server",
   "publishConfig": {
     "access": "public"
   },
