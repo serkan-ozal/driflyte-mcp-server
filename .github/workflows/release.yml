@@ -48,7 +48,7 @@ jobs:
         run: |
           curl -L "https://github.com/modelcontextprotocol/registry/releases/download/v1.0.0/mcp-publisher_1.0.0_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
       - name: Login to MCP Registry
-        run: ./mcp-publisher login github-oidc
+        run: ./mcp-publisher login dns --domain driflyte.com --private-key ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
       - name: Sync Version for MCP Publisher
         run: |
           VERSION=$(jq -r '.version' package.json)
