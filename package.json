@@ -32,9 +32,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:check": "prettier --config .prettierrc.json --check ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
     "lint:format": "prettier --config .prettierrc.json --write ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
-    "release:patch": "release-it --ci -VV --github.release --npm.publish --npm.skipChecks --no-git.requireCleanWorkingDir --no-git.requireUpstream",
-    "release:minor": "release-it minor --ci -VV --github.release --npm.publish --npm.skipChecks --no-git.requireCleanWorkingDir --no-git.requireUpstream",
-    "release:major": "release-it major --ci -VV --github.release --npm.publish --npm.skipChecks --no-git.requireCleanWorkingDir --no-git.requireUpstream"
+    "release:patch": "release-it --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='Release ${version}' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
+    "release:minor": "release-it minor --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='Release ${version}' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
+    "release:major": "release-it major --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='Release ${version}' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks"
   },
   "files": [
     "dist/",
@@ -57,20 +57,5 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.1",
     "axios": "^1.11.0"
-  },
-  "release-it": {
-    "git": {
-      "commit": "git commit -m \"Release ${version}\"",
-      "tag": true,
-      "tagName": "v${version}",
-      "tagAnnotation": "Release ${version}",
-      "push": true,
-      "pushArgs": ["--follow-tags"]
-    },
-    "github": {
-      "release": true,
-      "releaseName": "Release ${version}",
-      "releaseNotes": "Release ${version}"
-    }
   }
 }
