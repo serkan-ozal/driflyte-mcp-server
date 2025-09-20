@@ -1,22 +1,3 @@
 startCommand:
   type: http
-  commandFunction: |-
-    (config) => {
-      const port = String(process.env.PORT || config.port || 3000);
-      return {
-        command: 'node',
-        args: [
-          'dist/index.js',
-          '--transport', 'streamable-http',
-          `--port=${port}`
-        ],
-      };
-    }
-  configSchema:
-    type: object
-    properties:
-      port:
-        type: integer
-        default: 3000
-  exampleConfig:
-    port: 3000
+  command: [ "node", "dist/server.js", "--transport", "streamable-http" ]
