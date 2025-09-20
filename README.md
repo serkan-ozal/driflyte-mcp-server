@@ -58,12 +58,12 @@ Run the following command.
 See [Claude Code MCP docs](https://docs.anthropic.com/en/docs/claude-code/mcp) for more info.
 
 #### Local Server
-```sh
+```bash
 claude mcp add driflyte -- npx -y @driflye/mcp-server
 ```
 
 #### Remote Server
-```sh
+```bash
 claude mcp add --transport http driflyte https://mcp.driflyte.com/mcp
 ```
 
@@ -174,6 +174,15 @@ See the [Gemini CLI MCP docs](https://google-gemini.github.io/gemini-cli/docs/to
     }
   }
 }
+```
+
+### Smithery
+
+Run the following command.
+You can find your Smithery API key [here](https://smithery.ai/account/api-keys).
+See the [Smithery CLI docs](https://smithery.ai/docs/concepts/cli) for more info.
+```bash
+npx -y @smithery/cli install @serkan-ozal/driflyte-mcp-server --client <SMITHERY-CLIENT-NAME> --key <SMITHERY-API-KEY>
 ```
 
 ### VS Code
