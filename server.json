@@ -1,0 +1,33 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.serkan-ozal/driflyte-mcp-server",
+  "description": "Driflyte MCP Server exposes tools for AI assistants to query and retrieve topic-specific knowledge from recursively crawled and indexed sources like the web and GitHub, enabling richer and more accurate answers.",
+  "status": "active",
+  "repository": {
+    "url": "https://github.com/serkan-ozal/driflyte-mcp-server",
+    "source": "github"
+  },
+  "version": "{{VERSION}}",
+  "packages": [
+    {
+      "registry_type": "npm",
+      "registry_base_url": "https://registry.npmjs.org",
+      "identifier": "@driflyte/mcp-server",
+      "version": "{{VERSION}}",
+      "runtime_hint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.driflte.com/mcp"
+    },
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.driflte.com/openai"
+    }
+  ]
+}
