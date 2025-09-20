@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/serkan-ozal-driflyte-mcp-server-badge.png)](https://mseep.ai/app/serkan-ozal-driflyte-mcp-server)
+
 # Driflyte MCP Server
 
 ![Build Status](https://github.com/serkan-ozal/driflyte-mcp-server/actions/workflows/build.yml/badge.svg)
