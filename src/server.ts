@@ -62,9 +62,9 @@ function _createDriflyteClient(): DriflyteClient {
     });
 }
 
-export async function startServer(
-    customTransport?: Transport
-): Promise<McpServer> {
+export type McpServerConfig = {};
+
+export function createServer(config: McpServerConfig = {}): McpServer {
     const server: McpServer = new McpServer(
         {
             name: SERVER_NAME,
@@ -122,6 +122,14 @@ export async function startServer(
             createToolCallback(t)
         );
     });
+
+    return server;
+}
+
+export async function createAndConnectServer(
+    customTransport?: Transport
+): Promise<McpServer> {
+    const server: McpServer = createServer();
 
     const transport: Transport = customTransport || new StdioServerTransport();
     await server.connect(transport);
