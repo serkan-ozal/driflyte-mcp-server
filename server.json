@@ -23,11 +23,11 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://mcp.driflte.com/mcp"
+      "url": "https://mcp.driflyte.com/mcp"
     },
     {
       "type": "streamable-http",
-      "url": "https://mcp.driflte.com/openai"
+      "url": "https://mcp.driflyte.com/openai"
     }
   ]
 }
