@@ -1,3 +1,18 @@
 startCommand:
   type: http
-  command: [ "node", "dist/server.js", "--transport", "streamable-http" ]
+  command:
+    - node
+    - dist/index.js
+    - --transport
+    - streamable-http
+    - --port=${PORT}
+
+configSchema:
+  type: object
+  properties:
+    port:
+      type: integer
+      default: 3000
+
+exampleConfig:
+  port: 3000
