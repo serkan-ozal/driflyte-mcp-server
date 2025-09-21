@@ -85,6 +85,12 @@ export class Search implements Tool {
             query,
             topK,
         });
-        return response.response || {};
+        if (response.response) {
+            return {
+                documents: response.response.documents,
+            };
+        } else {
+            return {};
+        }
     }
 }
