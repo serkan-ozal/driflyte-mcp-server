@@ -36,6 +36,7 @@
     "build:cjs": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs --sourcemap",
     "types": "tsc --emitDeclarationOnly -p tsconfig.types.json",
     "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run types",
+    "prepare": "npm run build",
     "prepublishOnly": "npm run build",
     "start": "ts-node ./src/index.ts",
     "watch": "tsc --watch",
