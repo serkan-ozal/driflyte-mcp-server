@@ -13,7 +13,7 @@ import {
     ServerResponse,
 } from 'http';
 
-import { Server as McpServerRaw } from '@modelcontextprotocol/sdk/server/index';
+import { Server as McpServerRaw } from '@modelcontextprotocol/sdk/server/index.js';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';

@@ -7,7 +7,7 @@ startCommand:
       return {
         command: 'node',
         args: [
-          'dist/index.js',
+          'dist/index.mjs',
           '--transport', 'streamable-http',
           `--port=${port}`
         ],

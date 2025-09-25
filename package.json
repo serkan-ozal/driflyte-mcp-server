@@ -4,12 +4,17 @@
   "description": "MCP Server for Driflyte",
   "private": false,
   "type": "commonjs",
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "bin": {
-    "driflyte": "./dist/index.js"
+    "driflyte": "./dist/index.mjs"
   },
   "exports": {
-    ".": "./dist/server.js"
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
   },
   "author": "Serkan Ozal <serkanozal86@gmail.com> (https://github.com/serkan-ozal)",
   "homepage": "https://github.com/serkan-ozal/driflyte-mcp-server",
@@ -25,12 +30,16 @@
     "access": "public"
   },
   "mcpName": "com.driflyte/driflyte-mcp-server",
-  "module": "src/index.ts",
   "scripts": {
-    "build": "tsc",
+    "clean": "rimraf dist",
+    "build:esm": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/index.mjs --sourcemap --packages=external",
+    "build:cjs": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs --sourcemap",
+    "types": "tsc --emitDeclarationOnly -p tsconfig.types.json",
+    "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run types",
+    "prepublishOnly": "npm run build",
     "start": "ts-node ./src/index.ts",
     "watch": "tsc --watch",
-    "inspector": "npm run build && chmod 755 './dist/index.js' && npx @modelcontextprotocol/inspector dist/index.js",
+    "inspector": "npm run build && chmod 755 ./dist/index.mjs && npx @modelcontextprotocol/inspector node ./dist/index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:check": "prettier --config .prettierrc.json --check ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
     "lint:format": "prettier --config .prettierrc.json --write ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
@@ -49,10 +58,12 @@
     "@types/node": "^18.19.87",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
     "@typescript-eslint/parser": "^8.31.1",
+    "esbuild": "^0.23.0",
     "eslint": "^9.26.0",
     "eslint-plugin-import": "^2.31.0",
     "prettier": "^3.5.3",
     "release-it": "^17.6.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
