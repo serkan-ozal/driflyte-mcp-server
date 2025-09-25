@@ -10,11 +10,11 @@
   "version": "{{VERSION}}",
   "packages": [
     {
-      "registry_type": "npm",
-      "registry_base_url": "https://registry.npmjs.org",
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@driflyte/mcp-server",
       "version": "{{VERSION}}",
-      "runtime_hint": "npx",
+      "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
       }
