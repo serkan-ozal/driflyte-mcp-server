@@ -28,14 +28,23 @@ With this MCP server, Driflyte acts as a bridge between diverse, topic-aware con
   - **`100` API requests** per **`5` minutes** per **IP address**.
 - Future changes to usage policies and limits may be introduced as new features and resource integrations become available.
 
+
 ## Prerequisites
 - Node.js 18+
 - An AI assistant (with MCP client) like Cursor, Claude (Desktop or Code), VS Code, Windsurf, etc ...
 
+## Configurations
+
+### CLI Arguments
+
+Driflyte MCP server supports the following CLI arguments for configuration:
+- `--transport <stdio|streamable-http>` - Configures the transport protocol (defaults to `stdio`).
+- `--port <number>` – Configures the port number to listen on when using `streamable-http` transport (defaults to `3000`).
+
 
 ## Quick Start
 
-This MCP server (using `STDIO` transport) can be added to any MCP Client 
+This MCP server (using `STDIO` or `Streamable HTTP` transport) can be added to any MCP Client 
 like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-server` NPM package.
 
 ### ChatGPT
@@ -311,9 +320,9 @@ N/A
 
 ## Roadmap
 
-- Support `HTTP Stream` transport protocol (`SSE` transport protocol is deprecated in favor of it) to be able to use the MCP server from remote.
+- Support more content types (`.pdf`, `.ppt`/`.pptx`, `.doc`/`.docx`, and many others applicable including audio and video file formats ...)
 - Integrate with more data sources (Slack, Teams, Google Docs/Drive, Confluence, JIRA, Zendesk, Salesforce, etc ...))
-- Support more topics with their resources
+- And more topics with their resources
 
 
 ## Issues and Feedback
