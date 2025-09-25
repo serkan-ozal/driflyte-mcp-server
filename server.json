@@ -1,5 +1,5 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-16/server.schema.json",
   "name": "com.driflyte/driflyte-mcp-server",
   "description": "Driflyte MCP server which lets AI assistants query topic-specific knowledge from web and GitHub.",
   "status": "active",
