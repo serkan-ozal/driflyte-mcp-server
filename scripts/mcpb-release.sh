@@ -18,11 +18,20 @@ else
 fi
 echo "ℹ️ Using tag: ${TAG}"
 
+# Poll until release becomes visible via API
+MAX_TRIES=18   # ~90s
+SLEEP_SECS=5
+i=0
 # Ensure release exists for the tag
-if ! gh release view "$TAG" >/dev/null 2>&1; then
-  echo "❌ Error: Release for tag '$TAG' does not exist."
-  exit 1
-fi
+until gh release view "$TAG" >/dev/null 2>&1; do
+  i=$((i+1))
+  if (( i >= MAX_TRIES )); then
+    echo "❌ Release '$TAG' not visible after ${MAX_TRIES} tries."
+    exit 1
+  fi
+  echo "⏳ Waiting for release '$TAG' to appear… ($i/$MAX_TRIES)"
+  sleep "$SLEEP_SECS"
+done
 
 echo "ℹ️ Uploading MCPB asset to release $TAG…"
 gh release upload "$TAG" "$ASSET" --clobber
