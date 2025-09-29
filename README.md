@@ -4,6 +4,7 @@
 ![NPM Version](https://badge.fury.io/js/%40driflyte%2Fmcp-server.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 [![MCP Badge](https://lobehub.com/badge/mcp/serkan-ozal-driflyte-mcp-server)](https://lobehub.com/mcp/serkan-ozal-driflyte-mcp-server)
+[![smithery badge](https://smithery.ai/badge/@serkan-ozal/driflyte-mcp-server)](https://smithery.ai/server/@serkan-ozal/driflyte-mcp-server)
 
 MCP Server for [Driflyte](http://console.driflyte.com).
 
@@ -47,6 +48,14 @@ Driflyte MCP server supports the following CLI arguments for configuration:
 
 This MCP server (using `STDIO` or `Streamable HTTP` transport) can be added to any MCP Client 
 like VS Code, Claude, Cursor, Windsurf Github Copilot via the `@driflyte/mcp-server` NPM package.
+
+### Installing via Smithery
+
+To install Driflyte automatically via [Smithery](https://smithery.ai/server/@serkan-ozal/driflyte-mcp-server):
+
+```bash
+npx -y @smithery/cli install @serkan-ozal/driflyte-mcp-server
+```
 
 ### ChatGPT
 
