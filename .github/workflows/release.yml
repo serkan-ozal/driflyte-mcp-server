@@ -59,3 +59,7 @@ jobs:
         run: npm run mcpb:pack
       - name: Release MCPB
         run: ./scripts/mcpb-release.sh
+        env:
+          GH_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}       # gh uses this
+          GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}   # fallback
+          GITHUB_REPOSITORY: ${{ github.repository }}    # owner/repo
