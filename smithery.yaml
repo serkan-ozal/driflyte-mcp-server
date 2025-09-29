@@ -4,11 +4,3 @@ build:
   dockerBuildPath: .
 startCommand:
   type: http
-  configSchema:
-    type: object
-    properties:
-      port:
-        type: integer
-        default: 8081
-  exampleConfig:
-    port: 8081
