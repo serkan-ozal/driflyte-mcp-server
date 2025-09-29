@@ -46,7 +46,7 @@
     "release:patch": "release-it --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='echo \"Release ${version}\"' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
     "release:minor": "release-it minor --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='echo \"Release ${version}\"' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
     "release:major": "release-it major --ci -VV --git.commit --git.push --git.tag --git.tagName='v${version}' --github.release --github.releaseNotes='echo \"Release ${version}\"' --no-git.requireCleanWorkingDir --no-git.requireUpstream --npm.publish --npm.skipChecks",
-    "mcpb:pack": "mcpb pack && mv driflyte-mcp-server.mcpb .mcpb/driflyte.mcpb"
+    "mcpb:pack": "mkdir -p .mcpb && mcpb pack && mv driflyte-mcp-server.mcpb .mcpb/driflyte.mcpb"
   },
   "files": [
     "dist/",
