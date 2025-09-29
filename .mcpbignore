@@ -1,0 +1,13 @@
+.github
+.idea
+.mcp-registry
+.mcpb
+.smithery
+scripts
+src
+.gitignore
+.prettierrc.json
+glama.json
+smithery.yaml
+server.json
+tsconfig.*
