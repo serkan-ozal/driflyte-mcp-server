@@ -36,11 +36,10 @@
     "build:cjs": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/index.cjs --sourcemap",
     "types": "tsc --emitDeclarationOnly -p tsconfig.types.json",
     "build": "npm run clean && npm run build:esm && npm run build:cjs && npm run types",
-    "prepare": "npm run build",
     "prepublishOnly": "npm run build",
-    "start": "ts-node ./src/index.ts",
+    "start": "tsx ./src/index.ts",
     "watch": "tsc --watch",
-    "inspector": "npm run build && chmod 755 ./dist/index.mjs && npx @modelcontextprotocol/inspector node ./dist/index.mjs",
+    "inspector": "npm run build && chmod 755 ./dist/index.cjs && npx @modelcontextprotocol/inspector node ./dist/index.cjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint:check": "prettier --config .prettierrc.json --check ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
     "lint:format": "prettier --config .prettierrc.json --write ./src/*.ts ./src/**/*.ts ./src/**/**/*.ts ./src/**/**/**/*.ts",
@@ -66,6 +65,7 @@
     "release-it": "^17.6.0",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.8.3"
   },
   "dependencies": {
