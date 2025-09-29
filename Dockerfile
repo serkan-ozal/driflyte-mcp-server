@@ -20,8 +20,5 @@ RUN npm run build
 # Expose HTTP port
 EXPOSE $PORT
 
-# Reset the entrypoint, don't invoke Smithery CLI build
-ENTRYPOINT []
-
 # Start MCP server with "streamable-http" transport on given port (defaults to 8081)
 CMD ["node", "dist/index.cjs", "--transport", "streamable-http"]
