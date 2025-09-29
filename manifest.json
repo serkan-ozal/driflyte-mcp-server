@@ -1,0 +1,57 @@
+{
+  "manifest_version": "0.2",
+  "name": "@driflyte/mcp-server",
+  "display_name": "Driflyte",
+  "version": "{{VERSION}}",
+  "description": "Driflyte MCP server crawls, indexes and queries web & GitHub content for RAG-ready AI assistants.",
+  "long_description": "The Driflyte MCP Server exposes tools that allow AI assistants to query and retrieve topic-specific knowledge from recursively crawled and indexed web pages. With this MCP server, Driflyte acts as a bridge between diverse, topic-aware content sources (web, GitHub, and more) and AI-powered reasoning, enabling richer, more accurate answers.",
+  "author": {
+    "name": "Serkan Ozal <serkanozal86@gmail.com> (https://github.com/serkan-ozal)",
+    "email": "serkanozal86@gmail.com",
+    "url": "https://www.linkedin.com/in/serkanozal"
+  },
+  "homepage": "https://github.com/serkan-ozal/driflyte-mcp-server",
+  "documentation": "https://github.com/serkan-ozal/driflyte-mcp-server",
+  "support": "https://github.com/serkan-ozal/driflyte-mcp-server",
+  "icon": "assets/icons/driflyte.png",
+  "server": {
+    "type": "node",
+    "entry_point": "./dist/index.cjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/./dist/index.cjs"
+      ],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "list-topics",
+      "description": "Returns a list of topics for which resources (web pages, etc ...) have been crawled and content is available."
+    },
+    {
+      "name": "search",
+      "description": "Given a list of topics and a user question, this tool retrieves the top-K most relevant documents from the crawled content."
+    }
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=v18.0.0"
+    }
+  },
+  "keywords": [
+    "ai",
+    "mcp",
+    "rag",
+    "crawler",
+    "model-context-protocol",
+    "opentelemetry"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/serkan-ozal/driflyte-mcp-server.git"
+  }
+}
