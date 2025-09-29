@@ -68,7 +68,9 @@ function _getOptions(): Options {
         .addOption(
             new Option('--port <number>', 'port for Streamable HTTP transport')
                 .argParser(_parsePort)
-                .default(DEFAULT_PORT)
+                .default(
+                    process.env.PORT ? Number(process.env.PORT) : DEFAULT_PORT
+                )
         )
         .allowUnknownOption()
         .parse(process.argv);
