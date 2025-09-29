@@ -4,16 +4,16 @@
   "description": "MCP Server for Driflyte",
   "private": false,
   "type": "commonjs",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/types/index.d.ts",
   "bin": {
-    "driflyte": "./dist/index.mjs"
+    "driflyte": "./dist/index.cjs"
   },
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
     }
   },
   "author": "Serkan Ozal <serkanozal86@gmail.com> (https://github.com/serkan-ozal)",
