@@ -23,7 +23,7 @@ MAX_TRIES=18   # ~90s
 SLEEP_SECS=5
 i=0
 # Ensure release exists for the tag
-until gh release view "$TAG" >/dev/null 2>&1; do
+until gh release view "$TAG" --repo ${GITHUB_REPOSITORY} >/dev/null 2>&1; do
   i=$((i+1))
   if (( i >= MAX_TRIES )); then
     echo "❌ Release '$TAG' not visible after ${MAX_TRIES} tries."
@@ -34,6 +34,6 @@ until gh release view "$TAG" >/dev/null 2>&1; do
 done
 
 echo "ℹ️ Uploading MCPB asset to release $TAG…"
-gh release upload "$TAG" "$ASSET" --clobber
+gh release upload "$TAG" "$ASSET" --repo ${GITHUB_REPOSITORY} --clobber
 
 echo "✅ Done: driflyte.mcpb attached to release $TAG"
