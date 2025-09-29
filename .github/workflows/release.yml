@@ -50,8 +50,12 @@ jobs:
       - name: Login to MCP Registry
         run: ./mcp-publisher login dns --domain driflyte.com --private-key ${{ secrets.MCP_REGISTRY_PRIVATE_KEY }}
       - name: Sync Version for MCP Publisher
-        run: |
-          VERSION=$(jq -r '.version' package.json)
-          jq --arg v "$VERSION" '.version = $v | .packages[].version = $v' server.json > tmp && mv tmp server.json
+        run: ./scripts/mcp-publisher-sync-version.sh
       - name: Publish to MCP Registry
         run: ./mcp-publisher publish
+      - name: Sync Version for MCPB
+        run: ./scripts/mcpb-sync-version.sh
+      - name: Pack MCPB
+        run: npm run mcpb:pack
+      - name: Release MCPB
+        run: ./scripts/mcpb-release.sh
