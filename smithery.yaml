@@ -1,23 +1,6 @@
-runtime: typescript
+runtime: container
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .
 startCommand:
   type: http
-  commandFunction: |-
-    (config) => {
-      const port = String(process.env.PORT || config.port || 3000);
-      return {
-        command: 'node',
-        args: [
-          'dist/index.mjs',
-          '--transport', 'streamable-http',
-          `--port=${port}`
-        ],
-      };
-    }
-  configSchema:
-    type: object
-    properties:
-      port:
-        type: integer
-        default: 3000
-  exampleConfig:
-    port: 3000
