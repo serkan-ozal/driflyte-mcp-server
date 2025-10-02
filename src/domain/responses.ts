@@ -10,7 +10,11 @@ export interface Response<R> {
 
 export interface CrawlJobInventory {
     topics: string[];
-    urls: string[];
+    jobProperties: {
+        [topic: string]: {
+            [jobType: string]: string[];
+        };
+    };
 }
 
 export interface CrawlJobInventoryListResponse {
